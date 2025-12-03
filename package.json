@@ -1,0 +1,24 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "y",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tito-niyo/btechwebsiteIT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tito-niyo/btechwebsiteIT/issues"
+  },
+  "homepage": "https://github.com/Tito-niyo/btechwebsiteIT#readme",
+  "keywords": [],
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
