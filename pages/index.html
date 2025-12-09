@@ -7,127 +7,2052 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #6610f2;
+      --accent-color: #20c997;
+      --light-bg: #f8f9fa;
+      --dark-bg: #121212;
+    }
+    
     body {
       background: #f7f7f7;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding-top: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
+    
     .hero {
-      background: linear-gradient(135deg, #007bff, #6610f2);
-      color: whiteblack;
-      padding: 80px 20px;
-      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 100px 20px;
+      border-radius: 0 0 20px 20px;
+      position: relative;
+      overflow: hidden;
+      margin-top: -30px;
     }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="white" opacity="0.05"/></svg>');
+      background-size: cover;
+    }
+    
     .nav-link:hover {
-      color: #0d6efd !important;
+      color: var(--primary-color) !important;
+      transform: translateY(-2px);
+      transition: all 0.3s ease;
     }
+    
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 12px;
+      height: 100%;
+    }
+    
     .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+    
+    .course-progress {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #e9ecef;
+      overflow: hidden;
+    }
+    
+    .course-progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+    
+    .course-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--accent-color);
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dashboard-card {
+      height: 100%;
+      min-height: 180px;
+    }
+    
+    .announcement-card {
+      border-left: 4px solid var(--accent-color);
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #dc3545;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .resource-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    
+    .resource-icon:hover {
+      transform: scale(1.1);
+    }
+    
+    .floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 100;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .floating-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .btn-gradient {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-gradient:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0,0,0,0.1);
+      color: white;
+    }
+    
+    .course-level-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      z-index: 1;
+    }
+    
+    .level-beginner { background-color: #28a745; color: white; }
+    .level-intermediate { background-color: #ffc107; color: black; }
+    .level-advanced { background-color: #dc3545; color: white; }
+    .level-expert { background-color: #6610f2; color: white; }
+    
+    .announcement-priority-high { border-left: 4px solid #dc3545; }
+    .announcement-priority-medium { border-left: 4px solid #ffc107; }
+    .announcement-priority-low { border-left: 4px solid #28a745; }
+    
+    .assignment-due {
+      border-left: 4px solid #dc3545;
+    }
+    
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .animated-element {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .typewriter {
+      overflow: hidden;
+      border-right: 2px solid var(--primary-color);
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--primary-color) }
+    }
+    
+    .hover-effect {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-effect:hover {
       transform: scale(1.02);
-      transition: 0.3s ease-in-out;
+    }
+    
+    .progress-ring {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .progress-ring-circle {
+      stroke-dasharray: 251;
+      stroke-dashoffset: 251;
+      stroke-linecap: round;
+      stroke: var(--primary-color);
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      transition: stroke-dashoffset 1s ease;
+    }
+    
+    .search-box {
+      transition: all 0.3s ease;
+      border-radius: 25px;
+      padding-left: 45px;
+    }
+    
+    .search-box:focus {
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+      transform: scale(1.02);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+      z-index: 10;
+    }
+    
+    .toast {
+      animation: slideInRight 0.3s ease;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .modal-content {
+      animation: modalFadeIn 0.3s ease;
+    }
+    
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .dark-mode {
+      background-color: var(--dark-bg);
+      color: #f8f9fa;
+    }
+    
+    .dark-mode .card {
+      background-color: #1e1e1e;
+      color: #f8f9fa;
+    }
+    
+    .dark-mode .navbar, .dark-mode footer {
+      background-color: #1a1a1a !important;
+    }
+    
+    .dark-mode .text-muted {
+      color: #adb5bd !important;
+    }
+    
+    .grade-a { color: #28a745; font-weight: bold; }
+    .grade-b { color: #20c997; font-weight: bold; }
+    .grade-c { color: #ffc107; font-weight: bold; }
+    .grade-d { color: #fd7e14; font-weight: bold; }
+    .grade-f { color: #dc3545; font-weight: bold; }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0,0,0,.1);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    
+    .sticky-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+    
+    .smooth-transition {
+      transition: all 0.3s ease;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary-color);
+      opacity: 0;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    
+    .course-card {
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .course-card .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .course-card .card-text {
+      flex-grow: 1;
+    }
+    
+    .course-actions {
+      margin-top: auto;
+      padding-top: 15px;
     }
   </style>
 </head>
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top smooth-transition">
     <div class="container">
-      <a class="navbar-brand fw-bold text-primary" href="#">B-Tech IT</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-        <span class="navbar-toggler-icon"></span> I
-      </button>
+      <a class="navbar-brand fw-bold text-primary d-flex align-items-center hover-effect" href="#home">
+        <i class="bi bi-cpu-fill me-2"></i> B-Tech IT
+      </a>
+      
+      <!-- Search Box (Desktop) -->
+      <div class="d-none d-lg-flex position-relative" style="flex: 1; max-width: 400px;">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" class="form-control search-box" id="globalSearch" placeholder="Search courses, announcements...">
+      </div>
+      
+      <div class="d-flex align-items-center">
+        <!-- Notification Bell -->
+        <div class="position-relative me-3">
+          <button class="btn btn-outline-secondary rounded-circle hover-effect" id="notificationBell" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="notification-badge" id="notificationCount">5</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end p-3" style="min-width: 300px;">
+            <h6 class="fw-bold mb-3">Notifications</h6>
+            <div id="notificationList">
+              <!-- Notifications loaded by JavaScript -->
+            </div>
+            <div class="text-center mt-2">
+              <a href="#" class="text-decoration-none small">View All</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dark mode toggle -->
+        <div class="form-check form-switch me-3" data-bs-toggle="tooltip" title="Toggle Dark Mode">
+          <input class="form-check-input" type="checkbox" id="darkModeToggle">
+          <label class="form-check-label" for="darkModeToggle">
+            <i class="bi bi-moon-fill"></i>
+          </label>
+        </div>
+        
+        <button class="navbar-toggler hover-effect" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      
       <div class="collapse navbar-collapse" id="navMenu">
+        <!-- Search Box (Mobile) -->
+        <div class="d-lg-none mb-3 position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text" class="form-control search-box" id="mobileSearch" placeholder="Search...">
+        </div>
+        
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link hover-effect" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link hover-effect" href="#dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link hover-effect" href="#courses">Courses</a></li>
+          <li class="nav-item"><a class="nav-link hover-effect" href="#announcements">Announcements</a></li>
+          <li class="nav-item"><a class="nav-link hover-effect" href="#resources">Resources</a></li>
+          <li class="nav-item"><a class="nav-link hover-effect" href="#contact">Contact</a></li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <button class="btn btn-outline-primary dropdown-toggle hover-effect" data-bs-toggle="dropdown" id="userMenu">
+                <i class="bi bi-person-circle me-1"></i> Student
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item hover-effect" href="#" data-bs-toggle="modal" data-bs-target="#profileModal"><i class="bi bi-person me-2"></i> Profile</a></li>
+                <li><a class="dropdown-item hover-effect" href="#" data-bs-toggle="modal" data-bs-target="#gradesModal"><i class="bi bi-journal-check me-2"></i> Grades</a></li>
+                <li><a class="dropdown-item hover-effect" href="#" data-bs-toggle="modal" data-bs-target="#progressModal"><i class="bi bi-graph-up me-2"></i> Progress</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item hover-effect" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <section id="home" class="container mt-5 pt-5">
-    <div class="hero text-center">
-      <h1 class="display-4 fw-bold">B-Tech Information Technology</h1>
-      <p class="lead">RP NGOMA — Practical Skills for the Digital Future</p>
-      <a href="#courses" class="btn btn-light btn-lg mt-3"><i class="bi bi-layers"></i> View Courses</a>
+  <!-- HERO SECTION -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-3 typewriter">B-Tech Information Technology</h1>
+          <p class="lead mb-4">RP NGOMA — Practical Skills for the Digital Future</p>
+          <p class="mb-4">Join our cutting-edge program designed to equip you with the technical expertise and practical skills needed to thrive in the rapidly evolving IT industry.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#courses" class="btn btn-light btn-lg hover-effect">
+              <i class="bi bi-layers me-2"></i> Explore Courses
+            </a>
+            <a href="#announcements" class="btn btn-outline-light btn-lg hover-effect">
+              <i class="bi bi-megaphone me-2"></i> Latest Announcements
+            </a>
+            <button class="btn btn-light btn-lg hover-effect" data-bs-toggle="modal" data-bs-target="#welcomeModal">
+              <i class="bi bi-play-circle me-2"></i> Take Tour
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-5 mt-lg-0">
+          <div class="card shadow-lg border-0 p-4 hover-effect">
+            <h4 class="fw-bold mb-3">Program Highlights</h4>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Industry-Relevant Curriculum</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Hands-on Projects</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Expert Faculty</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> 95% Placement Rate</li>
+              <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Modern IT Labs</li>
+            </ul>
+            <button class="btn btn-outline-primary w-100 mt-3 hover-effect" onclick="showStats()">
+              <i class="bi bi-bar-chart me-2"></i> View Statistics
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="about" class="container py-5">
-    <h2 class="text-center mb-4 fw-bold">About the Program</h2>
+  <!-- STUDENT DASHBOARD -->
+  <section id="dashboard" class="container py-5">
+    <h2 class="section-title fw-bold">Student Dashboard</h2>
+    
     <div class="row g-4">
-      <div class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-          <h4>Who We Are</h4>
-          <p>B-Tech IT at RP NGOMA provides advanced skills in programming, networking, databases, cybersecurity, and software development.</p>
+      <!-- Quick Stats -->
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm p-4 text-center hover-effect" onclick="openProgressModal()">
+          <div class="resource-icon bg-primary bg-opacity-10 text-primary mx-auto">
+            <i class="bi bi-journal-text"></i>
+          </div>
+          <h3 class="fw-bold mt-2" id="enrolledCourses">6</h3>
+          <p class="text-muted mb-0">Enrolled Courses</p>
+          <small class="text-primary">Click to view progress</small>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-          <h4>Mission</h4>
-          <p>To produce highly skilled IT professionals who can create solutions using modern technologies.</p>
+      
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm p-4 text-center hover-effect" onclick="showAssignments()">
+          <div class="resource-icon bg-warning bg-opacity-10 text-warning mx-auto">
+            <i class="bi bi-clock-history pulse-animation"></i>
+          </div>
+          <h3 class="fw-bold mt-2" id="pendingAssignments">4</h3>
+          <p class="text-muted mb-0">Pending Assignments</p>
+          <small class="text-warning">Due soon</small>
         </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm p-4 text-center hover-effect" onclick="showUpcomingExams()">
+          <div class="resource-icon bg-success bg-opacity-10 text-success mx-auto">
+            <i class="bi bi-calendar-event"></i>
+          </div>
+          <h3 class="fw-bold mt-2" id="upcomingExams">3</h3>
+          <p class="text-muted mb-0">Upcoming Exams</p>
+          <small class="text-success">View schedule</small>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="card dashboard-card shadow-sm p-4 text-center hover-effect" onclick="openGradesModal()">
+          <div class="resource-icon bg-info bg-opacity-10 text-info mx-auto">
+            <i class="bi bi-award"></i>
+          </div>
+          <h3 class="fw-bold mt-2" id="currentGPA">3.7</h3>
+          <p class="text-muted mb-0">Current GPA</p>
+          <small class="text-info">View grades</small>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Recent Announcements -->
+    <div class="card shadow-sm border-0 p-4 mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold mb-0">Recent Announcements</h4>
+        <a href="#announcements" class="text-decoration-none hover-effect">View All <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="row g-4" id="recentAnnouncements">
+        <!-- Recent announcements loaded by JavaScript -->
       </div>
     </div>
   </section>
 
-  <section id="courses" class="container py-5">
-    <h2 class="text-center mb-4 fw-bold">Our Courses</h2>
+  <!-- COURSES SECTION - FIXED -->
+  <section id="courses" class="container py-5 bg-light rounded-3">
+    <h2 class="section-title fw-bold">IT Courses</h2>
+    
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <div class="btn-group" role="group" id="courseFilterGroup">
+          <button type="button" class="btn btn-outline-primary active" data-filter="all">All Courses</button>
+          <button type="button" class="btn btn-outline-primary" data-filter="core">Core IT</button>
+          <button type="button" class="btn btn-outline-primary" data-filter="programming">Programming</button>
+          <button type="button" class="btn btn-outline-primary" data-filter="networking">Networking</button>
+          <button type="button" class="btn btn-outline-primary" data-filter="security">Security</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <select class="form-select hover-effect" id="sortCourses">
+          <option value="name">Sort by Name</option>
+          <option value="credits">Sort by Credits</option>
+          <option value="level">Sort by Level</option>
+          <option value="progress">Sort by Progress</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="row g-4" id="coursesContainer">
+      <!-- Courses will be loaded here by JavaScript -->
+    </div>
+    
+    <div class="text-center mt-5">
+      <button class="btn btn-gradient btn-lg hover-effect" id="loadMoreBtn">
+        <i class="bi bi-plus-circle me-2"></i> Load More Courses
+      </button>
+    </div>
+  </section>
+
+  <!-- ANNOUNCEMENTS SECTION -->
+  <section id="announcements" class="container py-5">
+    <h2 class="section-title fw-bold">Announcements</h2>
+    
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control hover-effect" id="announcementSearch" placeholder="Search announcements...">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <select class="form-select hover-effect" id="filterAnnouncements">
+          <option value="all">All Announcements</option>
+          <option value="academic">Academic</option>
+          <option value="events">Events</option>
+          <option value="important">Important</option>
+          <option value="exams">Exams</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="row g-4" id="announcementsContainer">
+      <!-- Announcements loaded by JavaScript -->
+    </div>
+  </section>
+
+  <!-- RESOURCES SECTION -->
+  <section id="resources" class="container py-5 bg-light rounded-3">
+    <h2 class="section-title fw-bold">Learning Resources</h2>
+    
     <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card shadow-sm border-0 p-3">
-          <i class="bi bi-code-slash fs-1 text-primary"></i>
-          <h5 class="mt-3 fw-bold">Web Development</h5>
-          <p>Learn HTML, CSS, JavaScript, PHP and modern frameworks.</p>
+      <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-4 text-center h-100 hover-effect" onclick="openResource('notes')">
+          <div class="resource-icon bg-primary bg-opacity-10 text-primary mx-auto">
+            <i class="bi bi-file-earmark-pdf"></i>
+          </div>
+          <h5 class="fw-bold">Lecture Notes</h5>
+          <p class="text-muted">Download PDF notes, slides, and study guides for all IT courses.</p>
+          <button class="btn btn-outline-primary mt-2">View Notes</button>
         </div>
       </div>
-
-      <div class="col-md-4">
-        <div class="card shadow-sm border-0 p-3">
-          <i class="bi bi-diagram-3 fs-1 text-primary"></i>
-          <h5 class="mt-3 fw-bold">Networking</h5>
-          <p>Master network configuration, routing, switching, and security.</p>
+      
+      <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-4 text-center h-100 hover-effect" onclick="openResource('code')">
+          <div class="resource-icon bg-success bg-opacity-10 text-success mx-auto">
+            <i class="bi bi-code-square"></i>
+          </div>
+          <h5 class="fw-bold">Code Examples</h5>
+          <p class="text-muted">Access GitHub repositories with sample code and projects.</p>
+          <button class="btn btn-outline-primary mt-2">View Code</button>
         </div>
       </div>
-
-      <div class="col-md-4">
-        <div class="card shadow-sm border-0 p-3">
-          <i class="bi bi-database fs-1 text-primary"></i>
-          <h5 class="mt-3 fw-bold">Database Management</h5>
-          <p>Learn SQL, MySQL, data modeling, and system administration.</p>
+      
+      <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-4 text-center h-100 hover-effect" onclick="openResource('labs')">
+          <div class="resource-icon bg-warning bg-opacity-10 text-warning mx-auto">
+            <i class="bi bi-laptop"></i>
+          </div>
+          <h5 class="fw-bold">Virtual Labs</h5>
+          <p class="text-muted">Practice in our virtual IT labs with network simulators and IDEs.</p>
+          <button class="btn btn-outline-primary mt-2">Access Labs</button>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-4 text-center h-100 hover-effect" onclick="openResource('ebooks')">
+          <div class="resource-icon bg-info bg-opacity-10 text-info mx-auto">
+            <i class="bi bi-book"></i>
+          </div>
+          <h5 class="fw-bold">E-Books</h5>
+          <p class="text-muted">Access digital textbooks and reference materials for IT subjects.</p>
+          <button class="btn btn-outline-primary mt-2">Browse Books</button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- CONTACT SECTION -->
   <section id="contact" class="container py-5">
-    <h2 class="text-center mb-4 fw-bold">Contact Us</h2>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card border-0 shadow-sm p-4">
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Full Name</label>
-              <input type="text" class="form-control" required />
+    <h2 class="section-title fw-bold">Contact Us</h2>
+    
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm p-4 hover-effect">
+          <h4 class="fw-bold mb-4">Department of Information Technology</h4>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <h6><i class="bi bi-geo-alt-fill text-primary me-2"></i> Location</h6>
+              <p>IT Building, 3rd Floor<br>RP NGOMA Campus<br>Ngoma District, Rwanda</p>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control" required />
+            <div class="col-md-6">
+              <h6><i class="bi bi-clock-fill text-primary me-2"></i> Office Hours</h6>
+              <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Message</label>
-              <textarea class="form-control" rows="3"></textarea>
+          </div>
+          
+          <form id="contactForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Full Name</label>
+                <input type="text" class="form-control hover-effect" id="contactName" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Email Address</label>
+                <input type="email" class="form-control hover-effect" id="contactEmail" required>
+              </div>
             </div>
-            <button class="btn btn-primary w-100">Send Message</button>
+            
+            <div class="mb-3">
+              <label class="form-label fw-bold">Subject</label>
+              <select class="form-select hover-effect" id="contactSubject">
+                <option>General Inquiry</option>
+                <option>Admissions</option>
+                <option>Technical Support</option>
+                <option>Course Information</option>
+                <option>Other</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label fw-bold">Message</label>
+              <textarea class="form-control hover-effect" id="contactMessage" rows="4" placeholder="Your message here..."></textarea>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="newsletterCheck">
+                <label class="form-check-label" for="newsletterCheck">
+                  Subscribe to newsletter
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary px-4 hover-effect" id="submitContactBtn">
+                <i class="bi bi-send me-2"></i> Send Message
+              </button>
+            </div>
           </form>
         </div>
       </div>
+      
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card border-0 shadow-sm p-4 h-100 hover-effect">
+          <h4 class="fw-bold mb-4">Quick Contacts</h4>
+          
+          <div class="mb-4">
+            <h6 class="fw-bold">Department Head</h6>
+            <p class="mb-1">Dr. James Nkusi</p>
+            <p class="mb-1 text-muted">Email: j.nkusi@rpngoma.ac.rw</p>
+            <p class="mb-0 text-muted">Phone: +250 788 123 456</p>
+          </div>
+          
+          <div class="mb-4">
+            <h6 class="fw-bold">Academic Coordinator</h6>
+            <p class="mb-1">Ms. Alice Mukamana</p>
+            <p class="mb-1 text-muted">Email: a.mukamana@rpngoma.ac.rw</p>
+            <p class="mb-0 text-muted">Phone: +250 788 234 567</p>
+          </div>
+          
+          <div class="mb-4">
+            <h6 class="fw-bold">Technical Support</h6>
+            <p class="mb-1">Mr. Eric Tuyizere</p>
+            <p class="mb-1 text-muted">Email: support.it@rpngoma.ac.rw</p>
+            <p class="mb-0 text-muted">Phone: +250 788 345 678</p>
+          </div>
+          
+          <div class="text-center">
+            <button class="btn btn-outline-primary w-100 hover-effect" onclick="scheduleMeeting()">
+              <i class="bi bi-calendar-plus me-2"></i> Schedule Meeting
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <footer class="text-center py-3 bg-white shadow-sm mt-4">
-    <p class="mb-0">&copy; 2025 B-Tech IT - RP NGOMA. All Rights Reserved.</p>
+  <!-- FOOTER -->
+  <footer class="text-center py-4 bg-white shadow-sm mt-4 smooth-transition">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 text-md-start mb-3 mb-md-0">
+          <h5 class="fw-bold">Department of IT</h5>
+          <p class="mb-0 small">RP NGOMA Campus<br>P.O. Box 1234, Ngoma</p>
+        </div>
+        
+        <div class="col-md-4 mb-3 mb-md-0">
+          <p class="mb-0">&copy; 2025 B-Tech IT - RP NGOMA. All Rights Reserved.</p>
+          <div class="mt-2">
+            <a href="#" class="text-decoration-none text-muted me-3 hover-effect">Privacy Policy</a>
+            <a href="#" class="text-decoration-none text-muted hover-effect">Terms of Use</a>
+          </div>
+        </div>
+        
+        <div class="col-md-4 text-md-end">
+          <div class="d-flex justify-content-center justify-content-md-end">
+            <a href="#" class="text-decoration-none text-primary me-3 hover-effect">
+              <i class="bi bi-facebook fs-5"></i>
+            </a>
+            <a href="#" class="text-decoration-none text-primary me-3 hover-effect">
+              <i class="bi bi-twitter fs-5"></i>
+            </a>
+            <a href="#" class="text-decoration-none text-primary hover-effect">
+              <i class="bi bi-linkedin fs-5"></i>
+            </a>
+          </div>
+          <button class="btn btn-link text-decoration-none mt-2 hover-effect" onclick="showFeedbackForm()">
+            <i class="bi bi-chat-left-text me-1"></i> Give Feedback
+          </button>
+        </div>
+      </div>
+    </div>
   </footer>
 
+  <!-- Floating Action Button -->
+  <button class="floating-btn btn btn-primary" id="scrollToTopBtn">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Quick Help Chat -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <button class="btn btn-primary rounded-circle hover-effect" style="width: 60px; height: 60px;" 
+            data-bs-toggle="tooltip" title="Quick Help" onclick="openHelpChat()">
+      <i class="bi bi-question-lg fs-5"></i>
+    </button>
+  </div>
+
+  <!-- MODALS -->
+  <!-- Profile Modal -->
+  <div class="modal fade" id="profileModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Student Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <div class="avatar mx-auto mb-3" style="width: 80px; height: 80px; font-size: 24px;">
+              JS
+            </div>
+            <h5 class="fw-bold">John Smith</h5>
+            <p class="text-muted">B-Tech IT, Year 3</p>
+            <p class="text-muted">Student ID: IT20230045</p>
+          </div>
+          
+          <div class="mb-3">
+            <h6 class="fw-bold">Contact Information</h6>
+            <p class="mb-1"><i class="bi bi-envelope me-2"></i> john.smith@student.rpngoma.ac.rw</p>
+            <p class="mb-0"><i class="bi bi-phone me-2"></i> +250 788 999 888</p>
+          </div>
+          
+          <div class="mb-3">
+            <h6 class="fw-bold">Academic Information</h6>
+            <p class="mb-1">Current Semester: Semester 5</p>
+            <p class="mb-1">CGPA: 3.7/4.0</p>
+            <p class="mb-0">Enrollment Date: September 2023</p>
+          </div>
+          
+          <div class="text-center mt-4">
+            <button class="btn btn-outline-primary hover-effect" onclick="editProfile()">
+              <i class="bi bi-pencil me-2"></i> Edit Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grades Modal -->
+  <div class="modal fade" id="gradesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">My Grades</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Course</th>
+                  <th>Code</th>
+                  <th>Assignment 1</th>
+                  <th>Assignment 2</th>
+                  <th>Mid-Term</th>
+                  <th>Final</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody id="gradesTable">
+                <!-- Grades loaded by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course Details Modal -->
+  <div class="modal fade" id="courseDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="courseModalTitle">Course Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="courseModalBody">
+          <!-- Course details loaded by JavaScript -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary hover-effect" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary hover-effect" id="enrollBtn">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Announcement Details Modal -->
+  <div class="modal fade" id="announcementDetailsModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="announcementModalTitle">Announcement Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="announcementModalBody">
+          <!-- Announcement details loaded by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Modal -->
+  <div class="modal fade" id="progressModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Progress Summary</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <div class="mb-3">
+              <svg class="progress-ring" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#e9ecef" stroke-width="8"/>
+                <circle class="progress-ring-circle" cx="50" cy="50" r="40" fill="transparent" stroke-width="8" stroke-dashoffset="251"/>
+              </svg>
+              <h1 class="display-6 fw-bold text-primary mt-3" id="overallProgressPercent">78%</h1>
+              <p class="text-muted">Overall Semester Progress</p>
+            </div>
+          </div>
+          <div id="detailedProgress">
+            <!-- Detailed progress loaded by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Modal -->
+  <div class="modal fade" id="welcomeModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Welcome to B-Tech IT Portal!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Welcome to the B-Tech Information Technology portal. Here's a quick tour of what you can do:</p>
+          <ul>
+            <li>📚 View and enroll in courses</li>
+            <li>📢 Check important announcements</li>
+            <li>📊 Track your academic progress</li>
+            <li>💻 Access learning resources</li>
+            <li>📞 Contact faculty and staff</li>
+          </ul>
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="dontShowAgain">
+            <label class="form-check-label" for="dontShowAgain">
+              Don't show this again
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary hover-effect" data-bs-dismiss="modal">Skip Tour</button>
+          <button type="button" class="btn btn-primary hover-effect" onclick="startTour()">Start Tour</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Help Toast -->
+  <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 11">
+    <div class="toast" id="helpToast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="bi bi-info-circle text-primary me-2"></i>
+        <strong class="me-auto">Quick Tip</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body" id="helpMessage">
+        Welcome to B-Tech IT Portal!
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="position-fixed top-0 start-0 w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center" 
+       id="loadingOverlay" style="z-index: 9999; display: none !important;">
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading content...</p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // ==================== DATA ====================
+    const courses = [
+      {
+        id: 1,
+        title: "Introduction to Information Technology",
+        code: "IT101",
+        description: "Fundamentals of IT including computer hardware, software, networking, and basic cybersecurity concepts. This course provides a comprehensive overview of information technology systems and their applications in modern business environments.",
+        credits: 3,
+        level: "beginner",
+        category: "core",
+        instructor: "Dr. James Nkusi",
+        semester: "Semester 1",
+        enrolled: true,
+        progress: 85,
+        icon: "bi-laptop",
+        syllabus: "Computer hardware components, Operating Systems, Networks fundamentals, Security basics, IT infrastructure",
+        duration: "15 weeks",
+        schedule: "Mon/Wed 9:00-10:30 AM",
+        room: "IT Lab 101"
+      },
+      {
+        id: 2,
+        title: "Programming Fundamentals",
+        code: "IT103",
+        description: "Introduction to programming using Python with focus on algorithms, data structures, and problem-solving techniques. Students will learn computational thinking and basic programming concepts through hands-on projects.",
+        credits: 4,
+        level: "beginner",
+        category: "programming",
+        instructor: "Ms. Alice Mukamana",
+        semester: "Semester 1",
+        enrolled: true,
+        progress: 95,
+        icon: "bi-code-slash",
+        syllabus: "Python basics, Data types, Control structures, Functions, Object-oriented programming, Algorithms",
+        duration: "15 weeks",
+        schedule: "Tue/Thu 11:00-12:30 PM",
+        room: "Programming Lab 202"
+      },
+      {
+        id: 3,
+        title: "Database Management Systems",
+        code: "IT204",
+        description: "Design and implementation of relational databases using SQL and NoSQL technologies. Covers database design, normalization, transactions, and data integrity with practical projects using MySQL and MongoDB.",
+        credits: 4,
+        level: "intermediate",
+        category: "core",
+        instructor: "Dr. Maria Rodriguez",
+        semester: "Semester 2",
+        enrolled: true,
+        progress: 65,
+        icon: "bi-database",
+        syllabus: "ER Diagrams, SQL queries, Normalization, Transactions, NoSQL databases, Data modeling",
+        duration: "15 weeks",
+        schedule: "Mon/Wed 2:00-3:30 PM",
+        room: "Database Lab 103"
+      },
+      {
+        id: 4,
+        title: "Web Development Technologies",
+        code: "IT203",
+        description: "Full-stack web development using HTML5, CSS3, JavaScript, React, and Node.js. Students will build responsive, interactive web applications with modern frameworks and deploy them to cloud platforms.",
+        credits: 4,
+        level: "intermediate",
+        category: "programming",
+        instructor: "Ms. Grace Uwase",
+        semester: "Semester 3",
+        enrolled: true,
+        progress: 70,
+        icon: "bi-globe",
+        syllabus: "HTML/CSS, JavaScript, React.js, Node.js, REST APIs, Deployment, Responsive design",
+        duration: "15 weeks",
+        schedule: "Tue/Thu 9:00-10:30 AM",
+        room: "Web Lab 204"
+      },
+      {
+        id: 5,
+        title: "Computer Networks",
+        code: "IT205",
+        description: "Fundamentals of computer networking, OSI model, TCP/IP, network protocols, routing, switching, and network security. Includes hands-on labs with network simulators and real equipment.",
+        credits: 4,
+        level: "intermediate",
+        category: "networking",
+        instructor: "Mr. Paul Ndayisaba",
+        semester: "Semester 3",
+        enrolled: true,
+        progress: 60,
+        icon: "bi-hdd-network",
+        syllabus: "OSI model, TCP/IP, Routing protocols, Switching, Network security, Wireless networks",
+        duration: "15 weeks",
+        schedule: "Mon/Wed 11:00-12:30 PM",
+        room: "Networking Lab 105"
+      },
+      {
+        id: 6,
+        title: "Introduction to Cybersecurity",
+        code: "IT206",
+        description: "Basic concepts of cybersecurity including threats, vulnerabilities, risk assessment, cryptography, firewalls, and defense mechanisms. Practical labs on ethical hacking and security tools.",
+        credits: 3,
+        level: "intermediate",
+        category: "security",
+        instructor: "Mr. Brian Taylor",
+        semester: "Semester 3",
+        enrolled: true,
+        progress: 55,
+        icon: "bi-shield-check",
+        syllabus: "Security principles, Cryptography, Firewalls, Threats analysis, Risk assessment, Ethical hacking",
+        duration: "15 weeks",
+        schedule: "Fri 9:00-12:00 PM",
+        room: "Security Lab 106"
+      },
+      {
+        id: 7,
+        title: "Mobile Application Development",
+        code: "IT301",
+        description: "Building cross-platform mobile apps for Android and iOS using React Native and Flutter. Covers mobile UI design, APIs integration, state management, and app deployment to stores.",
+        credits: 4,
+        level: "advanced",
+        category: "programming",
+        instructor: "Mr. Eric Tuyizere",
+        semester: "Semester 4",
+        enrolled: false,
+        progress: 0,
+        icon: "bi-phone",
+        syllabus: "React Native, Flutter, Mobile UI design, APIs integration, State management, App deployment",
+        duration: "15 weeks",
+        schedule: "Tue/Thu 2:00-3:30 PM",
+        room: "Mobile Lab 207"
+      },
+      {
+        id: 8,
+        title: "Cloud Computing",
+        code: "IT305",
+        description: "Cloud architecture, services (IaaS, PaaS, SaaS), deployment models on AWS and Azure. Includes virtualization, containerization with Docker, Kubernetes, and cloud security best practices.",
+        credits: 4,
+        level: "advanced",
+        category: "core",
+        instructor: "Mr. Kevin Lee",
+        semester: "Semester 5",
+        enrolled: false,
+        progress: 0,
+        icon: "bi-cloud",
+        syllabus: "AWS services, Azure platform, Docker, Kubernetes, Cloud security, Serverless architecture",
+        duration: "15 weeks",
+        schedule: "Mon/Wed 3:30-5:00 PM",
+        room: "Cloud Lab 108"
+      },
+      {
+        id: 9,
+        title: "Artificial Intelligence",
+        code: "IT306",
+        description: "AI fundamentals, machine learning algorithms, neural networks, natural language processing, and computer vision. Practical projects using Python libraries like TensorFlow and PyTorch.",
+        credits: 4,
+        level: "expert",
+        category: "programming",
+        instructor: "Dr. Fatima Ali",
+        semester: "Semester 6",
+        enrolled: false,
+        progress: 0,
+        icon: "bi-robot",
+        syllabus: "Machine Learning, Neural Networks, NLP, Computer Vision, TensorFlow, PyTorch, AI Ethics",
+        duration: "15 weeks",
+        schedule: "Tue/Thu 3:30-5:00 PM",
+        room: "AI Lab 209"
+      },
+      {
+        id: 10,
+        title: "Network Security",
+        code: "IT303",
+        description: "Advanced network security concepts including cryptography, firewalls, intrusion detection systems, VPNs, and secure network design. Hands-on penetration testing and vulnerability assessment.",
+        credits: 4,
+        level: "advanced",
+        category: "security",
+        instructor: "Dr. Susan Wang",
+        semester: "Semester 4",
+        enrolled: false,
+        progress: 0,
+        icon: "bi-shield-lock",
+        syllabus: "Cryptography, Firewalls, IDS/IPS, VPNs, Penetration testing, Secure protocols",
+        duration: "15 weeks",
+        schedule: "Mon/Wed 1:00-2:30 PM",
+        room: "Security Lab 106"
+      },
+      {
+        id: 11,
+        title: "Software Engineering",
+        code: "IT304",
+        description: "Software development lifecycle, design patterns, testing methodologies, project management, and agile development practices. Team-based project to build a complete software system.",
+        credits: 4,
+        level: "advanced",
+        category: "core",
+        instructor: "Prof. Robert Kim",
+        semester: "Semester 4",
+        enrolled: false,
+        progress: 0,
+        icon: "bi-gear",
+        syllabus: "SDLC, Design patterns, Testing, Agile methodologies, Project management, Version control",
+        duration: "15 weeks",
+        schedule: "Tue/Thu 10:30-12:00 PM",
+        room: "Software Lab 210"
+      },
+      {
+        id: 12,
+        title: "Data Science Fundamentals",
+        code: "IT307",
+        description: "Data analysis, visualization, statistical modeling, and machine learning for data science. Using Python libraries like Pandas, NumPy, Matplotlib, and Scikit-learn for real-world data projects.",
+        credits: 4,
+        level: "advanced",
+        category: "programming",
+        instructor: "Dr. Ahmed Hassan",
+        semester: "Semester 5",
+        enrolled: false,
+        progress: 0,
+        icon: "bi-graph-up",
+        syllabus: "Data analysis, Visualization, Statistical modeling, Machine learning, Big data tools",
+        duration: "15 weeks",
+        schedule: "Mon/Wed 10:00-11:30 AM",
+        room: "Data Science Lab 211"
+      }
+    ];
+
+    const announcements = [
+      {
+        id: 1, title: "Mid-Term Examination Schedule Released",
+        content: "The schedule for mid-term examinations for Semester 5 has been published. Please check the examination portal for your timetable. All exams will be conducted in the main examination hall from 9:00 AM to 12:00 PM. Students must bring their ID cards and arrive 30 minutes before the exam. Electronic devices are not allowed in the examination hall.",
+        date: "2025-03-10", category: "exams", priority: "high",
+        author: "Examination Department", important: true
+      },
+      {
+        id: 2, title: "Registration for Semester 6 Now Open",
+        content: "Online registration for Semester 6 courses is now available through the student portal. Please complete your registration by March 25th to avoid late fees. Contact academic advisors for course selection guidance. Elective courses list has been updated with new offerings in AI and Blockchain technology.",
+        date: "2025-03-08", category: "academic", priority: "high",
+        author: "Academic Office", important: true
+      },
+      {
+        id: 3, title: "IT Career Fair 2025",
+        content: "Annual IT Career Fair will be held on March 28th at the main auditorium from 10:00 AM to 4:00 PM. Top tech companies including Google, Microsoft, Amazon, and local startups will be recruiting for internships and full-time positions. Bring your CV, portfolio, and be prepared for on-spot interviews. Dress code: Business casual.",
+        date: "2025-03-05", category: "events", priority: "medium",
+        author: "Career Services", important: false
+      },
+      {
+        id: 4, title: "Server Maintenance Notice",
+        content: "The IT department will perform server maintenance on March 15th from 10 PM to 2 AM. The student portal, LMS, and all online resources will be unavailable during this time. Please save your work before this time. We apologize for any inconvenience. Regular service will resume at 2:01 AM.",
+        date: "2025-03-03", category: "important", priority: "high",
+        author: "IT Department", important: true
+      },
+      {
+        id: 5, title: "Programming Competition Registration",
+        content: "Annual inter-college programming competition registration is open until March 20th. Teams of 3 students can register through the Computer Science Club portal. Preliminary round will be on March 25th. Prizes include internships at top tech companies, cash awards up to $5000, and certification vouchers.",
+        date: "2025-03-01", category: "events", priority: "medium",
+        author: "Computer Science Club", important: false
+      },
+      {
+        id: 6, title: "New IT Lab Equipment Installed",
+        content: "The department has installed new high-performance computers in IT Lab 101 and 102. All systems now feature Intel i7 processors, 32GB RAM, and NVIDIA RTX graphics cards. Lab hours have been extended to 10 PM daily for student projects.",
+        date: "2025-02-28", category: "academic", priority: "low",
+        author: "IT Department", important: false
+      }
+    ];
+
+    const grades = [
+      { course: "Introduction to Information Technology", code: "IT101", assignment1: "85", assignment2: "90", midterm: "88", final: "92", grade: "A" },
+      { course: "Programming Fundamentals", code: "IT103", assignment1: "92", assignment2: "88", midterm: "85", final: "90", grade: "A" },
+      { course: "Database Management Systems", code: "IT204", assignment1: "78", assignment2: "82", midterm: "80", final: "85", grade: "B+" },
+      { course: "Computer Networks", code: "IT205", assignment1: "85", assignment2: "87", midterm: "83", final: "Pending", grade: "In Progress" },
+      { course: "Web Development Technologies", code: "IT203", assignment1: "88", assignment2: "85", midterm: "82", final: "Pending", grade: "In Progress" },
+      { course: "Introduction to Cybersecurity", code: "IT206", assignment1: "76", assignment2: "80", midterm: "78", final: "Pending", grade: "In Progress" }
+    ];
+
+    const notifications = [
+      { id: 1, message: "Assignment 1 for Web Development is due tomorrow", time: "2 hours ago", read: false },
+      { id: 2, message: "New grades posted for Database Management", time: "1 day ago", read: false },
+      { id: 3, message: "Career Fair registration closing in 3 days", time: "2 days ago", read: true },
+      { id: 4, message: "System maintenance scheduled for tonight 10 PM", time: "3 days ago", read: true },
+      { id: 5, message: "Welcome to Semester 5! Check your schedule", time: "1 week ago", read: true }
+    ];
+
+    // ==================== UTILITY FUNCTIONS ====================
+    function formatDate(dateString) {
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+
+    function showToast(message, type = 'info') {
+      const toastEl = document.getElementById('helpToast');
+      const toastBody = document.getElementById('helpMessage');
+      const toastHeader = toastEl.querySelector('.toast-header i');
+      
+      toastBody.textContent = message;
+      
+      // Set icon based on type
+      if (type === 'success') {
+        toastHeader.className = 'bi bi-check-circle-fill text-success me-2';
+      } else if (type === 'error') {
+        toastHeader.className = 'bi bi-exclamation-triangle-fill text-danger me-2';
+      } else if (type === 'warning') {
+        toastHeader.className = 'bi bi-exclamation-circle-fill text-warning me-2';
+      } else {
+        toastHeader.className = 'bi bi-info-circle-fill text-primary me-2';
+      }
+      
+      const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+      toast.show();
+    }
+
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
+
+    function createConfetti() {
+      const colors = ['#007bff', '#6610f2', '#20c997', '#fd7e14', '#dc3545'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.opacity = '1';
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        
+        document.body.appendChild(confetti);
+        
+        // Animate
+        const animation = confetti.animate([
+          { top: '100vh', opacity: 1, transform: `rotate(${Math.random() * 360}deg)` },
+          { top: '-10px', opacity: 0, transform: `rotate(${Math.random() * 720}deg)` }
+        ], {
+          duration: 1000 + Math.random() * 1000,
+          easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
+      }
+    }
+
+    // ==================== CORE FUNCTIONALITY ====================
+    function renderCourses() {
+      const container = document.getElementById('coursesContainer');
+      container.innerHTML = '';
+      
+      // Show first 8 courses initially
+      const initialCourses = courses.slice(0, 8);
+      
+      initialCourses.forEach(course => {
+        const col = document.createElement('div');
+        col.className = 'col-md-6 col-lg-4 mb-4 animated-element';
+        
+        col.innerHTML = `
+          <div class="card shadow-sm h-100 course-card hover-effect" onclick="viewCourseDetails(${course.id})" 
+               data-bs-toggle="tooltip" title="Click for details">
+            <div class="card-body position-relative">
+              <span class="course-level-badge level-${course.level}">
+                ${course.level.charAt(0).toUpperCase()}
+              </span>
+              
+              ${course.enrolled ? 
+                '<span class="course-badge"><i class="bi bi-check-lg"></i></span>' : ''
+              }
+              
+              <div class="d-flex align-items-center mb-3">
+                <div class="resource-icon bg-primary bg-opacity-10 text-primary me-3">
+                  <i class="bi ${course.icon}"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-0">${course.code}</h6>
+                  <small class="text-muted">${course.credits} Credits • ${course.semester}</small>
+                </div>
+              </div>
+              
+              <h5 class="fw-bold mb-2">${course.title}</h5>
+              <p class="text-muted small mb-3 card-text">${course.description.substring(0, 120)}...</p>
+              
+              <div class="mt-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <small>Progress</small>
+                  <small class="fw-bold">${course.progress}%</small>
+                </div>
+                <div class="course-progress">
+                  <div class="course-progress-bar" style="width: ${course.progress}%"></div>
+                </div>
+              </div>
+              
+              <div class="course-actions">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <small><i class="bi bi-person me-1"></i> ${course.instructor.split(' ')[0]}</small>
+                  </div>
+                  <button class="btn btn-sm ${course.enrolled ? 'btn-success' : 'btn-outline-primary'}"
+                          onclick="event.stopPropagation(); enrollCourse(${course.id})">
+                    ${course.enrolled ? 
+                      '<i class="bi bi-check-lg me-1"></i>Enrolled' : 
+                      '<i class="bi bi-plus-lg me-1"></i>Enroll'
+                    }
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(col);
+      });
+      
+      // Update enrolled courses count
+      const enrolledCount = courses.filter(c => c.enrolled).length;
+      document.getElementById('enrolledCourses').textContent = enrolledCount;
+    }
+
+    function renderAnnouncements() {
+      const container = document.getElementById('announcementsContainer');
+      const recentContainer = document.getElementById('recentAnnouncements');
+      
+      container.innerHTML = '';
+      recentContainer.innerHTML = '';
+      
+      // Recent announcements (first 3)
+      announcements.slice(0, 3).forEach(announcement => {
+        const col = createAnnouncementCard(announcement, true);
+        recentContainer.appendChild(col);
+      });
+      
+      // All announcements
+      announcements.forEach(announcement => {
+        const col = createAnnouncementCard(announcement, false);
+        container.appendChild(col);
+      });
+    }
+
+    function createAnnouncementCard(announcement, isRecent) {
+      const col = document.createElement('div');
+      col.className = isRecent ? 'col-md-4' : 'col-md-6 col-lg-4';
+      
+      const priorityClass = `announcement-priority-${announcement.priority}`;
+      
+      col.innerHTML = `
+        <div class="card shadow-sm h-100 ${priorityClass} hover-effect" 
+             onclick="viewAnnouncementDetails(${announcement.id})"
+             data-bs-toggle="tooltip" title="Click for details">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge ${announcement.priority === 'high' ? 'bg-danger' : 
+                                  announcement.priority === 'medium' ? 'bg-warning' : 'bg-success'}">
+                ${announcement.category}
+              </span>
+              ${announcement.important ? 
+                '<span class="badge bg-danger"><i class="bi bi-exclamation-triangle"></i> Important</span>' : ''
+              }
+            </div>
+            
+            <h6 class="fw-bold mb-2">${announcement.title}</h6>
+            <p class="text-muted small mb-3">${announcement.content.substring(0, 100)}...</p>
+            
+            <div class="mt-auto">
+              <small class="text-muted">
+                <i class="bi bi-calendar me-1"></i> ${formatDate(announcement.date)}
+                <br>
+                <i class="bi bi-person me-1"></i> ${announcement.author}
+              </small>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      return col;
+    }
+
+    function renderGrades() {
+      const table = document.getElementById('gradesTable');
+      table.innerHTML = '';
+      
+      grades.forEach(grade => {
+        const row = document.createElement('tr');
+        let gradeClass = '';
+        
+        if (grade.grade === 'A') gradeClass = 'grade-a';
+        else if (grade.grade === 'B+') gradeClass = 'grade-b';
+        else if (grade.grade === 'In Progress') gradeClass = 'text-muted';
+        
+        row.innerHTML = `
+          <td>${grade.course}</td>
+          <td>${grade.code}</td>
+          <td>${grade.assignment1}</td>
+          <td>${grade.assignment2}</td>
+          <td>${grade.midterm}</td>
+          <td>${grade.final}</td>
+          <td class="${gradeClass} fw-bold">${grade.grade}</td>
+        `;
+        
+        table.appendChild(row);
+      });
+    }
+
+    function renderNotifications() {
+      const list = document.getElementById('notificationList');
+      list.innerHTML = '';
+      
+      const unreadCount = notifications.filter(n => !n.read).length;
+      document.getElementById('notificationCount').textContent = unreadCount;
+      
+      notifications.forEach(notification => {
+        const item = document.createElement('div');
+        item.className = `d-flex align-items-start p-2 border-bottom ${notification.read ? '' : 'bg-light'}`;
+        item.innerHTML = `
+          <i class="bi ${notification.read ? 'bi-bell' : 'bi-bell-fill text-primary'} mt-1 me-2"></i>
+          <div class="flex-grow-1">
+            <p class="mb-1 small">${notification.message}</p>
+            <small class="text-muted">${notification.time}</small>
+          </div>
+          ${!notification.read ? '<span class="badge bg-primary rounded-pill">New</span>' : ''}
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    // ==================== INTERACTIVE FUNCTIONS ====================
+    function enrollCourse(courseId) {
+      const course = courses.find(c => c.id === courseId);
+      if (!course) return;
+      
+      if (course.enrolled) {
+        showToast(`You're already enrolled in ${course.title}`, 'info');
+        return;
+      }
+      
+      showLoading();
+      setTimeout(() => {
+        course.enrolled = true;
+        course.progress = 0;
+        
+        // Update stats
+        const enrolledCount = courses.filter(c => c.enrolled).length;
+        document.getElementById('enrolledCourses').textContent = enrolledCount;
+        
+        hideLoading();
+        showToast(`Successfully enrolled in ${course.title}!`, 'success');
+        createConfetti();
+        renderCourses();
+        
+        // Update user menu
+        document.getElementById('userMenu').innerHTML = 
+          `<i class="bi bi-person-check me-1"></i> Student (${enrolledCount} courses)`;
+      }, 1000);
+    }
+
+    function viewCourseDetails(courseId) {
+      const course = courses.find(c => c.id === courseId);
+      if (!course) return;
+      
+      document.getElementById('courseModalTitle').textContent = course.title;
+      const modalBody = document.getElementById('courseModalBody');
+      
+      modalBody.innerHTML = `
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Course Code:</strong> ${course.code}</p>
+            <p><strong>Instructor:</strong> ${course.instructor}</p>
+            <p><strong>Credits:</strong> ${course.credits}</p>
+            <p><strong>Semester:</strong> ${course.semester}</p>
+            <p><strong>Duration:</strong> ${course.duration}</p>
+            <p><strong>Schedule:</strong> ${course.schedule}</p>
+            <p><strong>Room:</strong> ${course.room}</p>
+            <p><strong>Level:</strong> <span class="badge level-${course.level}">${course.level.charAt(0).toUpperCase() + course.level.slice(1)}</span></p>
+            <p><strong>Category:</strong> ${course.category}</p>
+          </div>
+          <div class="col-md-6">
+            <div class="card bg-light p-3 h-100">
+              <h6><i class="bi bi-journal-text me-2"></i>Course Description</h6>
+              <p class="mb-0">${course.description}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h6><i class="bi bi-list-check me-2"></i>Syllabus Overview</h6>
+            <div class="card bg-light p-3">
+              <p class="mb-0">${course.syllabus}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h6>Course Progress</h6>
+            <div class="progress" style="height: 20px;">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" 
+                   style="width: ${course.progress}%">
+                ${course.progress}%
+              </div>
+            </div>
+          </div>
+        </div>
+        ${course.enrolled ? 
+          `<div class="alert alert-success mt-3">
+            <i class="bi bi-check-circle me-2"></i> You are enrolled in this course. Next class: ${course.schedule}
+          </div>` : 
+          `<div class="alert alert-info mt-3">
+            <i class="bi bi-info-circle me-2"></i> Available for enrollment. ${course.credits} credits | ${course.duration}
+          </div>`
+        }
+      `;
+      
+      const enrollBtn = document.getElementById('enrollBtn');
+      if (course.enrolled) {
+        enrollBtn.textContent = 'Already Enrolled';
+        enrollBtn.disabled = true;
+        enrollBtn.className = 'btn btn-success hover-effect';
+      } else {
+        enrollBtn.textContent = 'Enroll Now';
+        enrollBtn.disabled = false;
+        enrollBtn.className = 'btn btn-primary hover-effect';
+        enrollBtn.onclick = () => {
+          enrollCourse(courseId);
+          bootstrap.Modal.getInstance(document.getElementById('courseDetailsModal')).hide();
+        };
+      }
+      
+      new bootstrap.Modal(document.getElementById('courseDetailsModal')).show();
+    }
+
+    function viewAnnouncementDetails(announcementId) {
+      const announcement = announcements.find(a => a.id === announcementId);
+      if (!announcement) return;
+      
+      document.getElementById('announcementModalTitle').textContent = announcement.title;
+      const modalBody = document.getElementById('announcementModalBody');
+      
+      modalBody.innerHTML = `
+        <div class="mb-3">
+          <small class="text-muted">
+            <i class="bi bi-calendar me-1"></i> ${formatDate(announcement.date)}
+            <i class="bi bi-person ms-3 me-1"></i> ${announcement.author}
+            <i class="bi bi-tag ms-3 me-1"></i> ${announcement.category}
+          </small>
+        </div>
+        <div class="alert announcement-priority-${announcement.priority}">
+          <p class="mb-0">${announcement.content}</p>
+        </div>
+        ${announcement.important ? 
+          `<div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i> <strong>Important Announcement</strong> - Please read carefully and take necessary action
+          </div>` : ''
+        }
+        <div class="text-center mt-4">
+          <button class="btn btn-outline-primary hover-effect" onclick="shareAnnouncement(${announcementId})">
+            <i class="bi bi-share me-2"></i> Share this announcement
+          </button>
+        </div>
+      `;
+      
+      new bootstrap.Modal(document.getElementById('announcementDetailsModal')).show();
+    }
+
+    function openProgressModal() {
+      const modal = new bootstrap.Modal(document.getElementById('progressModal'));
+      const progressCircle = document.querySelector('.progress-ring-circle');
+      const overallProgress = 78;
+      
+      // Animate progress ring
+      setTimeout(() => {
+        const circumference = 251; // 2 * π * r (r=40)
+        const offset = circumference - (overallProgress / 100) * circumference;
+        progressCircle.style.strokeDashoffset = offset;
+        document.getElementById('overallProgressPercent').textContent = overallProgress + '%';
+      }, 100);
+      
+      // Render detailed progress
+      const detailedProgress = document.getElementById('detailedProgress');
+      detailedProgress.innerHTML = '';
+      
+      courses.filter(c => c.enrolled).forEach(course => {
+        const progressItem = document.createElement('div');
+        progressItem.className = 'mb-3';
+        progressItem.innerHTML = `
+          <div class="d-flex justify-content-between mb-1">
+            <span>${course.title}</span>
+            <span class="fw-bold">${course.progress}%</span>
+          </div>
+          <div class="progress" style="height: 8px;">
+            <div class="progress-bar" role="progressbar" style="width: ${course.progress}%"></div>
+          </div>
+        `;
+        detailedProgress.appendChild(progressItem);
+      });
+      
+      modal.show();
+    }
+
+    function openGradesModal() {
+      renderGrades();
+      new bootstrap.Modal(document.getElementById('gradesModal')).show();
+    }
+
+    function openResource(type) {
+      const messages = {
+        'notes': 'Opening lecture notes library...',
+        'code': 'Redirecting to GitHub repositories...',
+        'labs': 'Launching virtual lab environment...',
+        'ebooks': 'Opening e-book library...'
+      };
+      
+      showToast(messages[type] || 'Opening resource...', 'info');
+      
+      // Simulate loading
+      showLoading();
+      setTimeout(() => {
+        hideLoading();
+        showToast('Resource opened successfully!', 'success');
+      }, 1500);
+    }
+
+    function shareAnnouncement(id) {
+      const announcement = announcements.find(a => a.id === id);
+      if (announcement && navigator.share) {
+        navigator.share({
+          title: announcement.title,
+          text: announcement.content.substring(0, 100) + '...',
+          url: window.location.href
+        });
+      } else {
+        showToast('Announcement link copied to clipboard!', 'success');
+        // In a real app, you would copy to clipboard
+      }
+    }
+
+    function scheduleMeeting() {
+      showToast('Opening meeting scheduler...', 'info');
+      setTimeout(() => {
+        showToast('Select available time slots for your meeting', 'info');
+      }, 1000);
+    }
+
+    function openHelpChat() {
+      showToast('Help chat opened! How can we assist you?', 'info');
+    }
+
+    function showFeedbackForm() {
+      const feedback = prompt('Please share your feedback about the portal:');
+      if (feedback) {
+        showToast('Thank you for your feedback!', 'success');
+        // In a real app, send to server
+        console.log('User feedback:', feedback);
+      }
+    }
+
+    function startTour() {
+      const welcomeModal = bootstrap.Modal.getInstance(document.getElementById('welcomeModal'));
+      welcomeModal.hide();
+      
+      showToast('Welcome to the interactive tour! Click around to explore features.', 'info');
+      
+      // Highlight key sections
+      setTimeout(() => {
+        showToast('Check out your dashboard for quick stats', 'info');
+      }, 3000);
+      
+      setTimeout(() => {
+        showToast('Browse courses and enroll in new ones', 'info');
+      }, 6000);
+    }
+
+    function showStats() {
+      const enrolled = courses.filter(c => c.enrolled).length;
+      const totalCourses = courses.length;
+      const avgProgress = courses.filter(c => c.enrolled).reduce((sum, c) => sum + c.progress, 0) / enrolled;
+      
+      showToast(`You're enrolled in ${enrolled} of ${totalCourses} courses with ${avgProgress.toFixed(1)}% average progress`, 'info');
+    }
+
+    function showAssignments() {
+      showToast('You have 4 pending assignments. Check the assignments tab for details.', 'warning');
+    }
+
+    function showUpcomingExams() {
+      showToast('Next exam: Web Development on March 25th at 9:00 AM in Main Hall', 'info');
+    }
+
+    function editProfile() {
+      showToast('Profile edit feature coming soon!', 'info');
+    }
+
+    function loadMoreCourses() {
+      const container = document.getElementById('coursesContainer');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      
+      // Show loading
+      const originalText = loadMoreBtn.innerHTML;
+      loadMoreBtn.innerHTML = '<span class="loading-spinner"></span> Loading...';
+      loadMoreBtn.disabled = true;
+      
+      setTimeout(() => {
+        // Load remaining courses
+        const currentCount = container.children.length;
+        const remainingCourses = courses.slice(currentCount, currentCount + 4);
+        
+        remainingCourses.forEach(course => {
+          const col = document.createElement('div');
+          col.className = 'col-md-6 col-lg-4 mb-4 animated-element';
+          
+          col.innerHTML = `
+            <div class="card shadow-sm h-100 course-card hover-effect" onclick="viewCourseDetails(${course.id})" 
+                 data-bs-toggle="tooltip" title="Click for details">
+              <div class="card-body position-relative">
+                <span class="course-level-badge level-${course.level}">
+                  ${course.level.charAt(0).toUpperCase()}
+                </span>
+                
+                ${course.enrolled ? 
+                  '<span class="course-badge"><i class="bi bi-check-lg"></i></span>' : ''
+                }
+                
+                <div class="d-flex align-items-center mb-3">
+                  <div class="resource-icon bg-primary bg-opacity-10 text-primary me-3">
+                    <i class="bi ${course.icon}"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold mb-0">${course.code}</h6>
+                    <small class="text-muted">${course.credits} Credits • ${course.semester}</small>
+                  </div>
+                </div>
+                
+                <h5 class="fw-bold mb-2">${course.title}</h5>
+                <p class="text-muted small mb-3 card-text">${course.description.substring(0, 120)}...</p>
+                
+                <div class="mt-3">
+                  <div class="d-flex justify-content-between mb-2">
+                    <small>Progress</small>
+                    <small class="fw-bold">${course.progress}%</small>
+                  </div>
+                  <div class="course-progress">
+                    <div class="course-progress-bar" style="width: ${course.progress}%"></div>
+                  </div>
+                </div>
+                
+                <div class="course-actions">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <small><i class="bi bi-person me-1"></i> ${course.instructor.split(' ')[0]}</small>
+                    </div>
+                    <button class="btn btn-sm ${course.enrolled ? 'btn-success' : 'btn-outline-primary'}"
+                            onclick="event.stopPropagation(); enrollCourse(${course.id})">
+                      ${course.enrolled ? 
+                        '<i class="bi bi-check-lg me-1"></i>Enrolled' : 
+                        '<i class="bi bi-plus-lg me-1"></i>Enroll'
+                      }
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          container.appendChild(col);
+        });
+        
+        // Update button
+        const totalLoaded = container.children.length;
+        if (totalLoaded >= courses.length) {
+          loadMoreBtn.innerHTML = '<i class="bi bi-check-circle me-2"></i> All Courses Loaded';
+          loadMoreBtn.disabled = true;
+          loadMoreBtn.classList.remove('btn-gradient');
+          loadMoreBtn.classList.add('btn-secondary');
+        } else {
+          loadMoreBtn.innerHTML = originalText;
+          loadMoreBtn.disabled = false;
+        }
+        
+        showToast('More courses loaded successfully!', 'success');
+      }, 1500);
+    }
+
+    // ==================== EVENT LISTENERS ====================
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize tooltips
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+      
+      // Initialize scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.animated-element').forEach(el => observer.observe(el));
+      
+      // Scroll to top button
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      window.addEventListener('scroll', () => {
+        scrollToTopBtn.style.display = window.pageYOffset > 300 ? 'flex' : 'none';
+      });
+      
+      scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      // Dark mode
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+      
+      if (savedDarkMode) {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.checked = true;
+      }
+      
+      darkModeToggle.addEventListener('change', function() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', this.checked);
+        showToast(`Dark mode ${this.checked ? 'enabled' : 'disabled'}`, 'info');
+      });
+      
+      // Course filtering
+      const filterButtons = document.querySelectorAll('[data-filter]');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          showToast(`Showing ${filter === 'all' ? 'all' : filter} courses`, 'info');
+        });
+      });
+      
+      // Search functionality
+      const searchInputs = document.querySelectorAll('#globalSearch, #mobileSearch, #announcementSearch');
+      searchInputs.forEach(input => {
+        input.addEventListener('input', function() {
+          if (this.value.length > 2) {
+            // Search logic would go here
+            console.log('Searching for:', this.value);
+          }
+        });
+      });
+      
+      // Contact form
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const subject = document.getElementById('contactSubject').value;
+        const message = document.getElementById('contactMessage').value;
+        
+        if (!name || !email || !message) {
+          showToast('Please fill all required fields', 'error');
+          return;
+        }
+        
+        const submitBtn = document.getElementById('submitContactBtn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="loading-spinner"></span> Sending...';
+        submitBtn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+          showToast('Message sent successfully! We will contact you soon.', 'success');
+          this.reset();
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          createConfetti();
+        }, 2000);
+      });
+      
+      // Load more courses
+      document.getElementById('loadMoreBtn').addEventListener('click', loadMoreCourses);
+      
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to logout?')) {
+          showToast('Logged out successfully. Redirecting...', 'info');
+          setTimeout(() => {
+            // In a real app, redirect to login page
+            showToast('You have been logged out.', 'info');
+          }, 1000);
+        }
+      });
+      
+      // Show welcome modal on first visit
+      if (!localStorage.getItem('welcomeShown')) {
+        setTimeout(() => {
+          new bootstrap.Modal(document.getElementById('welcomeModal')).show();
+          localStorage.setItem('welcomeShown', 'true');
+        }, 1000);
+      }
+      
+      // Initial render
+      renderCourses();
+      renderAnnouncements();
+      renderGrades();
+      renderNotifications();
+      
+      // Initial welcome message
+      setTimeout(() => {
+        showToast('Welcome to B-Tech IT Portal! Click on courses to view details and enroll.', 'info');
+      }, 500);
+    });
+  </script>
 </body>
 </html>
